@@ -8,29 +8,39 @@ const AudioElement = styled.div`
     }
 `;
 
-const ButtonElement = styled.button`
-     {
-        display: block;
-        height: 50px;
-        width: 100px;
-        margin: auto;
-    }
-`;
+// const ButtonElement = styled.button`
+//      {
+//         display: block;
+//         height: 50px;
+//         width: 100px;
+//         margin: auto;
+//     }
+// `;
 
 const App = () => {
     const audioElement = useRef();
     const seekbar = useRef();
+    const intervalRef = useRef(0);
     const [title, setTitle] = useState('');
+    const [trackProgress, setTrackProgress] = useState(0);
 
     const togglePlay = () => {
         console.log(audioElement);
-        audioElement.current.paused
-            ? audioElement.current.play()
-            : audioElement.current.pause();
+        if (audioElement.current.paused) {
+            audioElement.current.play();
+            clearInterval(intervalRef.current);
+
+            intervalRef.current = setInterval(() => {
+                setTrackProgress(audioElement.current.currentTime);
+            }, [1000]);
+        } else {
+            audioElement.current.pause();
+        }
     };
 
     useEffect(() => {
         setTitle(audioElement.current.src);
+        setTrackProgress(audioElement.current.currentTime);
     }, []);
 
     const rangeSet = (e) => {
@@ -65,6 +75,7 @@ const App = () => {
                     step="0.25"
                     max="100"
                     defaultValue="0"
+                    value={trackProgress}
                     onChange={rangeSet}
                 ></input>
             </AudioElement>
