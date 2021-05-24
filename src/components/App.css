@@ -37,12 +37,12 @@
     }
 }
 
-.play-btn:hover {
+button:hover {
     transform: scale(0.97);
     cursor: pointer;
 }
 
-.play-btn:active {
+button:active {
     transform: scale(0.95);
 }
 
@@ -54,4 +54,15 @@
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+.last-btn {
+    transform: rotate(180deg);
+}
+
+button {
+    background-color: #61dafb;
+    border: none;
+    margin: 10px;
+    color: gray;
 }

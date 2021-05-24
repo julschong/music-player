@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useRef, useState, useEffect } from 'react';
 import { ReactComponent as PlaySVG } from '../assets/play-arrow.svg';
 import { ReactComponent as NextSVG } from '../assets/next.svg';
+import { ReactComponent as PauseSVG } from '../assets/pause.svg';
 
 const AudioElement = styled.div`
      {
@@ -80,6 +81,13 @@ const App = () => {
         setTrackIndex((track) => track + 1);
     };
 
+    const last = () => {
+        if (trackIndex === 0) {
+            return setTrackIndex(playList.length - 1);
+        }
+        setTrackIndex((track) => track - 1);
+    };
+
     return (
         <div className="App">
             <AudioElement className="noselect" id="audio-player-container">
@@ -92,11 +100,28 @@ const App = () => {
                     type="audio/mpeg"
                     autoPlay={true}
                 ></audio>
-                <button onClick={togglePlay}>
-                    <PlaySVG className="play-btn" width="50px" />
+                <button onClick={last}>
+                    <NextSVG className="last-btn" width="50px" height="50px" />
                 </button>
+                {isPlaying ? (
+                    <button onClick={togglePlay}>
+                        <PauseSVG
+                            className="pause-btn"
+                            width="50px"
+                            height="50px"
+                        />
+                    </button>
+                ) : (
+                    <button onClick={togglePlay}>
+                        <PlaySVG
+                            className="play-btn"
+                            width="50px"
+                            height="50px"
+                        />
+                    </button>
+                )}
                 <button onClick={next}>
-                    <NextSVG className="next-btn" width="50px" />
+                    <NextSVG className="next-btn" width="50px" height="50px" />
                 </button>
                 <input
                     ref={seekbar}
