@@ -17,6 +17,10 @@
     position: relative;
 }
 
+.audio-control-group {
+    display: flex;
+}
+
 button {
     background-color: transparent;
     border: none;
@@ -36,6 +40,7 @@ button {
     margin: auto;
     border-radius: 1em 1em 0 0;
     width: 80%;
+    min-width: 400px;
     background-color: rgba(255, 255, 255, 0.473);
     transition: 0.5s;
     transform: translateY(50px);
@@ -43,6 +48,12 @@ button {
     position: relative;
     z-index: 1;
     padding-top: 5px;
+    padding-left: 25%;
+    text-align: left;
+}
+
+.drawer-seekbar input {
+    width: 80%;
 }
 
 .img-container img {
@@ -78,6 +89,6 @@ button {
     width: 25px;
     height: 25px;
     position: absolute;
-    bottom: 50%;
+    bottom: 37%;
     left: 37%;
 }

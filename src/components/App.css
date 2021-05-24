@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 *,
 *::before,
 *::after {
@@ -11,6 +13,7 @@
     justify-content: center;
     align-items: center;
     background-image: linear-gradient(rgb(252, 209, 216), white);
+    font-family: 'Open Sans', sans-serif;
 }
 
 body {
@@ -35,4 +38,8 @@ button:active {
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+svg {
+    fill: rgba(0, 0, 0, 0.384);
 }

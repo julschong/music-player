@@ -3,10 +3,10 @@ import React from 'react';
 const RotatingCD = ({ isPlaying }) => {
     const rotate = isPlaying
         ? {
-              'animation-play-state': 'running'
+              animationPlayState: 'running'
           }
         : {
-              'animation-play-state': 'paused'
+              animationPlayState: 'paused'
           };
 
     return (

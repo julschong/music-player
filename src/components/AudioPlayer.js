@@ -33,7 +33,6 @@ const AudioPlayer = () => {
 
     useEffect(
         () => () => {
-            console.log(`isplaying useEffect ran`);
             intervalRef.current = setInterval(() => {
                 setTrackProgress(
                     (audioElement.current.currentTime /
@@ -67,7 +66,6 @@ const AudioPlayer = () => {
     };
 
     const togglePlay = () => {
-        console.log(audioElement);
         if (audioElement.current.paused) {
             audioElement.current.play();
             clearInterval(intervalRef.current);
@@ -102,7 +100,7 @@ const AudioPlayer = () => {
                     src={`./assets/${playList[trackIndex]}`}
                     type="audio/mpeg"
                 ></audio>
-                <div clasName="audio-control-group">
+                <div className="audio-control-group">
                     <button onClick={last}>
                         <NextSVG
                             className="last-btn"
@@ -114,16 +112,16 @@ const AudioPlayer = () => {
                         <button onClick={togglePlay}>
                             <PauseSVG
                                 className="pause-btn"
-                                width="50px"
-                                height="50px"
+                                width="80px"
+                                height="80px"
                             />
                         </button>
                     ) : (
                         <button onClick={togglePlay}>
                             <PlaySVG
                                 className="play-btn"
-                                width="50px"
-                                height="50px"
+                                width="80px"
+                                height="80px"
                             />
                         </button>
                     )}
