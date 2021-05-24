@@ -57,15 +57,15 @@ button {
 }
 
 .img-container img {
-    width: 100px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
     object-fit: cover;
     border-radius: 50%;
     animation: rotation 3s infinite linear;
     animation-play-state: running;
     position: absolute;
-    bottom: 0px;
-    left: 0px;
+    bottom: 20%;
+    left: -10px;
 }
 
 @keyframes rotation {
@@ -89,6 +89,6 @@ button {
     width: 25px;
     height: 25px;
     position: absolute;
-    bottom: 37%;
-    left: 37%;
+    bottom: 70px;
+    left: 40px;
 }
