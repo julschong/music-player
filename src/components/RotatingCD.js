@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RotatingCD = ({ isPlaying }) => {
+const RotatingCD = ({ isPlaying, title }) => {
     const rotate = isPlaying
         ? {
               animationPlayState: 'running'
@@ -11,7 +11,11 @@ const RotatingCD = ({ isPlaying }) => {
 
     return (
         <div className="img-container">
-            <img src="./assets/Atmosphere.jpg" alt="cd" style={rotate}></img>
+            <img
+                src={`./assets/${title.split('/').pop().split('.')[0]}.jpg`}
+                alt="cd"
+                style={rotate}
+            ></img>
         </div>
     );
 };

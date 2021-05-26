@@ -21,6 +21,7 @@ const AudioPlayer = () => {
     const [trackProgress, setTrackProgress] = useState(0);
     const [trackIndex, setTrackIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
+    let interaction = useRef(false);
 
     useEffect(() => {
         setTitle(audioElement.current.src);
@@ -31,18 +32,27 @@ const AudioPlayer = () => {
         setIsPlaying(false);
     }, [trackIndex]);
 
-    useEffect(
-        () => () => {
-            intervalRef.current = setInterval(() => {
-                setTrackProgress(
-                    (audioElement.current.currentTime /
-                        audioElement.current.duration) *
-                        100
-                );
-            }, [1000]);
-        },
-        [isPlaying]
-    );
+    useEffect(() => {
+        intervalRef.current = setInterval(() => {
+            if (
+                audioElement.current.currentTime ===
+                audioElement.current.duration
+            ) {
+                setIsPlaying(false);
+                setTrackIndex((track) => {
+                    if (track === playList.length - 1) {
+                        return 0;
+                    }
+                    return track + 1;
+                });
+            }
+            setTrackProgress(
+                (audioElement.current.currentTime /
+                    audioElement.current.duration) *
+                    100
+            );
+        }, [1000]);
+    }, [isPlaying, trackIndex]);
 
     const rangeSet = () => {
         audioElement.current.currentTime = Math.floor(
@@ -66,6 +76,8 @@ const AudioPlayer = () => {
     };
 
     const togglePlay = () => {
+        console.log(audioElement.current);
+
         if (audioElement.current.paused) {
             audioElement.current.play();
             clearInterval(intervalRef.current);
@@ -94,11 +106,17 @@ const AudioPlayer = () => {
                 isPlaying={isPlaying}
             />
             <div className="noselect " id="audio-player">
-                <RotatingCD isPlaying={isPlaying} />
+                <RotatingCD isPlaying={isPlaying} title={title} />
                 <audio
                     ref={audioElement}
                     src={`./assets/${playList[trackIndex]}`}
                     type="audio/mpeg"
+                    onLoadedData={() => {
+                        if (!interaction.current) {
+                            return (interaction.current = true);
+                        }
+                        togglePlay();
+                    }}
                 ></audio>
                 <div className="audio-control-group">
                     <button onClick={last}>
