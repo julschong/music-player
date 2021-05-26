@@ -1,7 +1,9 @@
 .audio-container {
-    max-width: 500px;
-    width: 50vw;
+    display: flex;
+
+    width: 500px;
     justify-content: center;
+    align-items: center;
     text-align: center;
     flex-direction: column;
 }
@@ -37,7 +39,6 @@ button {
 }
 
 .drawer-seekbar {
-    margin: auto;
     border-radius: 1em 1em 0 0;
     width: 80%;
     min-width: 400px;

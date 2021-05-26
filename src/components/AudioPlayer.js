@@ -1,17 +1,10 @@
 import React from 'react';
 import './AudioPlayer.css';
 import { useRef, useState, useEffect } from 'react';
-import { ReactComponent as PlaySVG } from '../assets/play-arrow.svg';
-import { ReactComponent as NextSVG } from '../assets/next.svg';
-import { ReactComponent as PauseSVG } from '../assets/pause.svg';
 import DrawerSeekbar from './DrawerSeekbar';
 import RotatingCD from './RotatingCD';
-
-const playList = [
-    'Atmosphere.mp3',
-    'Destroy-capitalism-for-christmas.mp3',
-    'music.mp3'
-];
+import playList from '../assets/playList';
+import AudioControl from './AudioControl';
 
 const AudioPlayer = () => {
     const audioElement = useRef();
@@ -29,7 +22,6 @@ const AudioPlayer = () => {
             (audioElement.current.currentTime / audioElement.current.duration) *
                 100
         );
-        setIsPlaying(false);
     }, [trackIndex]);
 
     useEffect(() => {
@@ -38,7 +30,6 @@ const AudioPlayer = () => {
                 audioElement.current.currentTime ===
                 audioElement.current.duration
             ) {
-                setIsPlaying(false);
                 setTrackIndex((track) => {
                     if (track === playList.length - 1) {
                         return 0;
@@ -72,12 +63,9 @@ const AudioPlayer = () => {
             return setTrackIndex(playList.length - 1);
         }
         setTrackIndex((track) => track - 1);
-        console.log(audioElement);
     };
 
     const togglePlay = () => {
-        console.log(audioElement.current);
-
         if (audioElement.current.paused) {
             audioElement.current.play();
             clearInterval(intervalRef.current);
@@ -105,7 +93,7 @@ const AudioPlayer = () => {
                 rangeSet={rangeSet}
                 isPlaying={isPlaying}
             />
-            <div className="noselect " id="audio-player">
+            <div className="noselect" id="audio-player">
                 <RotatingCD isPlaying={isPlaying} title={title} />
                 <audio
                     ref={audioElement}
@@ -115,42 +103,16 @@ const AudioPlayer = () => {
                         if (!interaction.current) {
                             return (interaction.current = true);
                         }
-                        togglePlay();
+                        audioElement.current.play();
+                        setIsPlaying(true);
                     }}
                 ></audio>
-                <div className="audio-control-group">
-                    <button onClick={last}>
-                        <NextSVG
-                            className="last-btn"
-                            width="50px"
-                            height="50px"
-                        />
-                    </button>
-                    {isPlaying ? (
-                        <button onClick={togglePlay}>
-                            <PauseSVG
-                                className="pause-btn"
-                                width="80px"
-                                height="80px"
-                            />
-                        </button>
-                    ) : (
-                        <button onClick={togglePlay}>
-                            <PlaySVG
-                                className="play-btn"
-                                width="80px"
-                                height="80px"
-                            />
-                        </button>
-                    )}
-                    <button onClick={next}>
-                        <NextSVG
-                            className="next-btn track-btn"
-                            width="50px"
-                            height="50px"
-                        />
-                    </button>
-                </div>
+                <AudioControl
+                    isPlaying={isPlaying}
+                    last={last}
+                    togglePlay={togglePlay}
+                    next={next}
+                />
             </div>
         </div>
     );
